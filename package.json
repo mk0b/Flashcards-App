@@ -1,0 +1,23 @@
+{
+  "name": "Flashcards-App",
+  "version": "1.0.0",
+  "description": "This is a Treehouse learning project to help people study.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mk0b/Flashcards-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mk0b/Flashcards-App/issues"
+  },
+  "homepage": "https://github.com/mk0b/Flashcards-App#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
