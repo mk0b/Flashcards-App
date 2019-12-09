@@ -11,3 +11,9 @@ app.listen(3000, () => {
 app.get('/hello', (req, res) => {
     res.render('hello');
 });
+
+//need to setup a post request for our /hello form
+app.post('/hello', (req, res) => {
+    console.dir(req);
+    res.render('hello');
+});
