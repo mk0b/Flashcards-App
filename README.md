@@ -1,0 +1,1 @@
+This is a Treehouse learning project to help people study.
