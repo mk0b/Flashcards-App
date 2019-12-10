@@ -15,6 +15,15 @@ app.listen(3000, () => {
     console.log('The application is running on localhost:3000');
 });
 
+//writing some middleware to see how it works
+app.use( (req, res, next)=>{
+    console.log('One');
+    next();
+});
+
+
+
+
 app.get('/', (req, res) => {
     const name = req.cookies.username;
     if (name) {
