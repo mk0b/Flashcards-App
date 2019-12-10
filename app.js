@@ -15,13 +15,32 @@ app.listen(3000, () => {
     console.log('The application is running on localhost:3000');
 });
 
+app.get('/', (req, res) => {
+    const name = req.cookies.username;
+    if (name) {
+        res.render('index', { name });
+    } else {
+        res.redirect('/hello');
+    }
+});
+
 app.get('/hello', (req, res) => {
-    res.render('hello', {name: req.cookies.username});
+    const name = req.cookies.username;
+    if (name) {
+        res.redirect('/');
+    } else {
+        res.render('hello');
+    }
 });
 
 //need to setup a post request for our /hello form
 app.post('/hello', (req, res) => {
     //setting the cookie up
     res.cookie('username', req.body.username);
-    res.render('hello', { name: req.body.username});
+    res.redirect('/');
+});
+
+app.post('/goodbye', (req, res) => {
+    res.clearCookie('username');
+    res.redirect('/hello');
 });
