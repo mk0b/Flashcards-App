@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
+
 const app = express();
 
 //telling my app to use pug nd set the settings.
@@ -11,45 +12,32 @@ app.set('view engine', 'pug');
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
 
+const mainRoutes = require('./routes');
+const cardRoutes = require('./routes/cards');
+
+app.use(mainRoutes);
+app.use('/cards', cardRoutes);
+
 app.listen(3000, () => {
     console.log('The application is running on localhost:3000');
 });
 
 //writing some middleware to see how it works
 app.use( (req, res, next)=>{
-    console.log('One');
+    console.log('Hello');
     next();
 });
 
-
-
-
-app.get('/', (req, res) => {
-    const name = req.cookies.username;
-    if (name) {
-        res.render('index', { name });
-    } else {
-        res.redirect('/hello');
-    }
+//catching 404 code.
+app.use( (req, res, next) => {
+    const err = new Error('Not found');
+    err.status = 404;
+    next(err);
 });
 
-app.get('/hello', (req, res) => {
-    const name = req.cookies.username;
-    if (name) {
-        res.redirect('/');
-    } else {
-        res.render('hello');
-    }
-});
-
-//need to setup a post request for our /hello form
-app.post('/hello', (req, res) => {
-    //setting the cookie up
-    res.cookie('username', req.body.username);
-    res.redirect('/');
-});
-
-app.post('/goodbye', (req, res) => {
-    res.clearCookie('username');
-    res.redirect('/hello');
+//custom error handlier
+app.use( (err, req, res, next) => {
+    res.locals.error = err;
+    res.status(500);
+    res.render('error');
 });
