@@ -11,6 +11,7 @@ app.set('view engine', 'pug');
 //telling my app to use bodyparser url encoded and setting extended setting to false
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
+app.use('/static',express.static('public'));
 
 const mainRoutes = require('./routes');
 const cardRoutes = require('./routes/cards');
